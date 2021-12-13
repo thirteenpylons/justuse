@@ -69,7 +69,7 @@ def test_package(pkg: PackageToTest) -> tuple[bool, Dict]:
             retry = str(e.args[0]).strip().strip(".").splitlines()[-1]
             hashes = re.findall("hashes={([^}]+)}", str(e))[0]
             hashes = {_hash.strip("'") for _hash in hashes.split(", ")}
-            print(str(e))
+            print(e)
             use_version = re.findall('version="(.*)", ', str(e))[0]
         else:
             exc_type, exc_value, _ = sys.exc_info()

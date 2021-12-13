@@ -912,9 +912,7 @@ VALUES ({self.registry.lastrowid}, '{hash_algo.name}', '{hash_value}')"""
 
 
 use = Use()
-use.__dict__.update(
-    {k: v for k, v in globals().items()}
-)  # to avoid recursion-confusion
+use.__dict__.update(dict(globals()))
 use = ProxyModule(use)
 
 

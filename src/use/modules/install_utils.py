@@ -92,10 +92,12 @@ def get_supported() -> frozenset[PlatformTag]:
     Returns a set containing all platform _platform_tags
     supported on the current system.
     """
-    items: list[PlatformTag] = []
+    items: list[PlatformTag] = [
+        PlatformTag(platform=tag.platform)
+        for tag in compatibility_tags.get_supported()
+    ]
 
-    for tag in compatibility_tags.get_supported():
-        items.append(PlatformTag(platform=tag.platform))
+
     for tag in packaging.tags._platform_tags():
         items.append(PlatformTag(platform=str(tag)))
 
@@ -890,7 +892,7 @@ def _get_package_data(package_name) -> PyPI_Project:
 
 
 def _sys_version():
-    return Version(".".join(map(str, sys.version_info[0:3])))
+    return Version(".".join(map(str, sys.version_info[:3])))
 
 
 def _filter_by_platform(

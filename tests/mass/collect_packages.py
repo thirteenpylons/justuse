@@ -53,7 +53,7 @@ def find_meta(pkg: dict[str, str]):
         link_options += list(project_urls.values())
     owner, repo, url = get_github(link_options)
     stars = get_stars(owner, repo)
-    base = {"name": pkg["name"], "versions": [version for version in meta["releases"].keys()]}
+    base = {"name": pkg["name"], "versions": list(meta["releases"].keys())}
     if stars < 0:
         return base
     return {**base, **{"stars": stars, "repo": url}}
